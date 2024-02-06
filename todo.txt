@@ -1,0 +1,6 @@
+site url |  createdAt   |   timeSpent
+
+
+views:
+-----
+daily   |weekly     |monthly        | alltime
