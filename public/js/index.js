@@ -38,10 +38,17 @@ function displayData(data) {
     td1.textContent = data[i].created_at;
     tr.appendChild(td1);
     const td2 = document.createElement('td');
-    td2.textContent = data[i].name;
+    td2.textContent = data[i].url;
     tr.appendChild(td2);
     const td3 = document.createElement('td');
-    td3.textContent = data[i].time_spent;
+    const totalTime = data[i].time_spent;
+    //turn seconds in to days, hours, minutes, seconds
+    const days = Math.floor(totalTime / (60 * 60 * 24));
+    const hours = Math.floor(totalTime / (60 * 60)) % 24;
+    const minutes = Math.floor(totalTime / 60) % 60;
+    const seconds = totalTime % 60;
+
+    td3.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     tr.appendChild(td3);
     tbody.appendChild(tr);
   }

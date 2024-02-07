@@ -37,6 +37,13 @@ def time_since_created(created_at)
     time.to_i
 end
 
+#method to update time_spent
+def update_time_spent(site, time_spent)
+    site.update(
+        time_spent: site.time_spent + time_spent
+    )
+end
+
 get '/' do
     erb :index
 end
@@ -82,7 +89,7 @@ post '/sites' do
     site = Site.where(url: request_payload['url']).first
     if site
       site.update(
-        time_spent: time_since_created(site.created_at)
+        time_spent: site.time_spent + (request_payload['time_spent'] / 1000)
       )
       json site
     else
@@ -91,7 +98,7 @@ post '/sites' do
         name: request_payload['name'],
         created_at: Time.now,
         updated_at: Time.now,
-        time_spent: 0
+        time_spent: (request_payload['time_spent'] / 1000) || 0
       )
       json site
     end

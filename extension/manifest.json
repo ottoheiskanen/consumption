@@ -10,7 +10,12 @@
   "host_permissions": [
     "https://www.ylilauta.org/*",
     "https://www.reddit.com/*",
-    "https://www.twitter.com/*"
+    "https://www.twitter.com/*",
+    "https://www.youtube.com/*",
+    "https://www.hs.fi/*",
+    "https://www.iltalehti.fi/*",
+    "https://www.is.fi/*",
+    "https://www.yle.fi/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -23,7 +28,12 @@
       "matches": [
         "https://www.ylilauta.org/*",
         "https://www.reddit.com/*",
-        "https://www.twitter.com/*"
+        "https://www.twitter.com/*",
+        "https://www.youtube.com/*",
+        "https://www.hs.fi/*",
+        "https://www.iltalehti.fi/*",
+        "https://www.is.fi/*",
+        "https://www.yle.fi/*"
       ],
       "js": ["extension.js"]
     }
