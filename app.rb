@@ -1,18 +1,10 @@
 require 'sinatra'
 require 'sinatra/json'
-require 'sinatra/cors'
 require 'sequel'
 require 'json'
 
 set :views, File.expand_path('../views', __FILE__)
 set :public_folder, 'public'
-
-set :allow_origin, "*" # Allows access from any origin
-set :allow_methods, "GET,HEAD,POST, PUT" # Specifies the methods allowed when accessing the resource in response to a preflight request.
-set :allow_headers, "content-type,if-modified-since" # Allowed headers
-set :expose_headers, "location,link" # Exposes headers to the frontend
-set :max_age, "1728000" # Indicates how long the results of a preflight request can be cached.
-set :allow_credentials, true # Tells browsers whether to expose the response to frontend JavaScript code when the request's credentials mode is "include".
 
 before do
     response.headers['Access-Control-Allow-Origin'] = '*' 
