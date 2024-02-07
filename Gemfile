@@ -5,3 +5,5 @@ gem 'sequel'
 gem 'sqlite3'
 gem 'json'
 gem 'sinatra-contrib'
+
+gem 'puma'

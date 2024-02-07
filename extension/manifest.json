@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+    "name": "Consumption",
+    "version": "1.0",
+  
+    "description": "Tracks the time usage on different websites",
+    "permissions": [
+        "https://www.ylilauta.org/*",
+        "https://www.reddit.com/*",
+        "https://www.twitter.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+  
+    "icons": {
+      "48": "icons/border-48.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": [
+            "https://www.ylilauta.org/*",
+            "https://www.reddit.com/*",
+            "https://www.twitter.com/*"
+        ],
+        "js": ["extension.js"]
+      }
+    ]
+}
