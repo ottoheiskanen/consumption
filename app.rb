@@ -1,10 +1,30 @@
 require 'sinatra'
 require 'sinatra/json'
+require 'sinatra/cors'
 require 'sequel'
 require 'json'
 
 set :views, File.expand_path('../views', __FILE__)
 set :public_folder, 'public'
+
+set :allow_origin, "*" # Allows access from any origin
+set :allow_methods, "GET,HEAD,POST, PUT" # Specifies the methods allowed when accessing the resource in response to a preflight request.
+set :allow_headers, "content-type,if-modified-since" # Allowed headers
+set :expose_headers, "location,link" # Exposes headers to the frontend
+set :max_age, "1728000" # Indicates how long the results of a preflight request can be cached.
+set :allow_credentials, true # Tells browsers whether to expose the response to frontend JavaScript code when the request's credentials mode is "include".
+
+before do
+    response.headers['Access-Control-Allow-Origin'] = '*' 
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+end
+  
+options "*" do
+    response.headers["Allow"] = "GET, POST"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+    200
+end
 
 DB = Sequel.connect('sqlite://api.db')
 
@@ -41,35 +61,50 @@ get '/sites/:id' do
     json site
 end
 
+# post '/sites' do
+
+#     #check if the site already exists
+#     site = Site.where(url: params[:url]).first
+#     if site
+#         site.update(
+#             time_spent: time_since_created(site.created_at)
+#         )
+#         json site
+#     else
+#         site = Site.create(
+#             url: params[:url],
+#             name: params[:name],
+#             created_at: Time.now,
+#             updated_at: Time.now,
+#             time_spent: 0
+#         )
+#         json site
+#     end
+# end
+
 post '/sites' do
-
-    #check if the site already exists
-    site = Site.where(url: params[:url]).first
+    request.body.rewind
+    request_payload = JSON.parse(request.body.read)
+  
+    # Now access the parameters via request_payload instead of params
+    site = Site.where(url: request_payload['url']).first
     if site
-        site.update(
-            time_spent: time_since_created(site.created_at)
-        )
-        json site
+      site.update(
+        time_spent: time_since_created(site.created_at)
+      )
+      json site
     else
-        site = Site.create(
-            url: params[:url],
-            name: params[:name],
-            created_at: Time.now,
-            updated_at: Time.now,
-            time_spent: 0
-        )
-        json site
+      site = Site.create(
+        url: request_payload['url'],
+        name: request_payload['name'],
+        created_at: Time.now,
+        updated_at: Time.now,
+        time_spent: 0
+      )
+      json site
     end
-
-    # site = Site.create(
-    #     url: params[:url],
-    #     name: params[:name],
-    #     created_at: Time.now,
-    #     updated_at: Time.now,
-    #     time_spent: 0
-    # )
-    # json site
 end
+
 
 put '/sites/:id' do
     site = Site[params[:id]]
