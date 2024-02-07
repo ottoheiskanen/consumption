@@ -61,7 +61,6 @@ function sendDataToServer(tabId, timeSpent) {
     });
 }
 
-// Helper function to validate if a URL is allowed based on predefined patterns
 function isUrlAllowed(url) {
     const allowedPatterns = [
         /^https:\/\/(www\.)?ylilauta\.org\/.*/,
@@ -72,6 +71,8 @@ function isUrlAllowed(url) {
         /^https:\/\/(www\.)?iltalehti\.fi\/.*/,
         /^https:\/\/(www\.)?is\.fi\/.*/,
         /^https:\/\/(www\.)?yle\.fi\/.*/,
+        /^https:\/\/(www\.)?elearn.uef\.fi\/.*/,
+        /^https:\/\/(www\.)?github\.com\/.*/,
     ];
     return allowedPatterns.some(pattern => pattern.test(url));
 }

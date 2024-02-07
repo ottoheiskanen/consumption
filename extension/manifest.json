@@ -15,7 +15,9 @@
     "https://www.hs.fi/*",
     "https://www.iltalehti.fi/*",
     "https://www.is.fi/*",
-    "https://www.yle.fi/*"
+    "https://www.yle.fi/*",
+    "https://elearn.uef.fi/*",
+    "https://github.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -33,7 +35,9 @@
         "https://www.hs.fi/*",
         "https://www.iltalehti.fi/*",
         "https://www.is.fi/*",
-        "https://www.yle.fi/*"
+        "https://www.yle.fi/*",
+        "https://elearn.uef.fi/*",
+        "https://github.com/*"
       ],
       "js": ["extension.js"]
     }

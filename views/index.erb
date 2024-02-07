@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Consumption</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script defer src="/js/index.js" type="module"></script>
 </head>
 <style>
@@ -9,11 +10,17 @@
     width: 100%;
     max-width: 480px; 
   }
+  #bar-chart-container {
+    width: 100%;
+    max-width: 480px; 
+  }
 </style>
 
   <body>
     <h1>Consumption</h1>
-    <button id="post-button">Post to db</button>
+    <div id="bar-chart-container">
+      <canvas id="bar-chart"></canvas>
+    </div>
     <div id="table-container"></div>
   </body>
 </html>

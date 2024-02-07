@@ -60,27 +60,6 @@ get '/sites/:id' do
     json site
 end
 
-# post '/sites' do
-
-#     #check if the site already exists
-#     site = Site.where(url: params[:url]).first
-#     if site
-#         site.update(
-#             time_spent: time_since_created(site.created_at)
-#         )
-#         json site
-#     else
-#         site = Site.create(
-#             url: params[:url],
-#             name: params[:name],
-#             created_at: Time.now,
-#             updated_at: Time.now,
-#             time_spent: 0
-#         )
-#         json site
-#     end
-# end
-
 post '/sites' do
     request.body.rewind
     request_payload = JSON.parse(request.body.read)
