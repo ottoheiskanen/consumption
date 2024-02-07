@@ -5,6 +5,8 @@
   
     "description": "Tracks the time usage on different websites",
     "permissions": [
+        "tabs",
+        "alarms",
         "https://www.ylilauta.org/*",
         "https://www.reddit.com/*",
         "https://www.twitter.com/*"

@@ -7,3 +7,5 @@ gem 'json'
 gem 'sinatra-contrib'
 
 gem 'puma'
+
+gem 'rerun', '~> 0.14.0'

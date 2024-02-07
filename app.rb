@@ -26,13 +26,14 @@ def time_since_created(created_at)
 end
 
 get '/' do
-      erb :index
+    erb :index
 end
 
 
 get '/sites' do
     sites = Site.all
-    json sites
+    #json sites
+    sites.map(&:values).to_json
 end
 
 get '/sites/:id' do
