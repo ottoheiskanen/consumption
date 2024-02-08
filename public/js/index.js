@@ -114,7 +114,7 @@ function displayData(data) {
 } 
 
 function loadData() {
-  fetch('http://localhost:9292/sites',{
+  fetch('http://localhost:6969/sites',{
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ function loadData() {
 }
 
 function postSiteData(siteUrl, siteName) {
-  const apiUrl = 'http://localhost:9292/sites';
+  const apiUrl = 'http://localhost:6969/sites';
 
   const url = new URL(siteUrl);
   const baseUrl = `${url.protocol}//${url.hostname}`;

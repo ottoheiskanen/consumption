@@ -1,6 +1,12 @@
 to start auto refreshing dev instance -> bundle exec rerun puma
 prod start  -> ruby app.rb
 
+//cron for debugging:
+@reboot /home/null/Desktop/dev/consumption/boot.sh > /home/null/Desktop/dev/consumption/reboot.log 2>&1
+
+//cron for prod:
+@reboot /home/null/Desktop/dev/consumption/boot.sh
+
 
 TODO:
 ------

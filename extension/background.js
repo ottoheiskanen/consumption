@@ -46,7 +46,7 @@ function sendDataToServer(tabId, timeSpent) {
             time_spent: timeSpent
         };
 
-        fetch('http://localhost:9292/sites', {
+        fetch('http://localhost:6969/sites', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
