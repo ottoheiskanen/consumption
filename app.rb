@@ -32,12 +32,6 @@ end
 class Site < Sequel::Model
 end
 
-def time_since_created(created_at)
-    time = Time.now - created_at
-    time.to_i
-end
-
-#method to update time_spent
 def update_time_spent(site, time_spent)
     site.update(
         time_spent: site.time_spent + time_spent
@@ -64,7 +58,6 @@ post '/sites' do
     request.body.rewind
     request_payload = JSON.parse(request.body.read)
   
-    # Now access the parameters via request_payload instead of params
     site = Site.where(url: request_payload['url']).first
     if site
       site.update(

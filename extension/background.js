@@ -1,10 +1,9 @@
 let currentTab;
 let startTime = Date.now();
 
-// Track the active tab
 function updateActiveTab(activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function(tab) {
-        // Validate tab URL before updating currentTab
+
         if (isUrlAllowed(tab.url)) {
             currentTab = activeInfo.tabId;
             startTime = Date.now();
@@ -16,10 +15,9 @@ function updateActiveTab(activeInfo) {
 
 chrome.tabs.onActivated.addListener(updateActiveTab);
 
-// Create an alarm to trigger every 10 seconds
+// alarmtrigger every 10 seconds
 chrome.alarms.create("sendData", { periodInMinutes: 1 / 6 });
 
-// On alarm, send the time spent to the server
 chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === "sendData" && currentTab !== null) {
         const timeSpent = Date.now() - startTime;

@@ -1,11 +1,13 @@
 const tableContainer = document.getElementById('table-container');
 
 let sites = [];
+let interval;
+let barChart;
 
 let siteRating = {
   "https://www.ylilauta.org": "bad",
   "https://www.reddit.com": "bad",
-  "https://www.twitter.com": "bad",
+  "https://twitter.com": "bad",
   "https://www.youtube.com": "neutral",
   "https://www.hs.fi": "neutral",
   "https://www.iltalehti.fi": "bad",
@@ -16,7 +18,19 @@ let siteRating = {
 }
 
 window.onload = function() {
+  refreshPageData();
+  interval = setInterval(refreshPageData, 10000*6);
+}
+
+function refreshPageData() {
   loadData();
+}
+
+function daysTrackedSince(date) {
+  const today = new Date();
+  const startDate = new Date(date);
+  const timeDiff = Math.abs(today.getTime() - startDate.getTime());
+  return Math.ceil(timeDiff / (1000 * 3600 * 24));
 }
 
 function displayData(data) {
@@ -37,7 +51,7 @@ function displayData(data) {
   const thead = document.createElement('thead');
   const tr = document.createElement('tr');
   const th1 = document.createElement('th');
-  th1.textContent = 'Date';
+  th1.textContent = 'Days since tracked:';
   tr.appendChild(th1);
   const th2 = document.createElement('th');
   th2.textContent = 'Site';
@@ -53,7 +67,7 @@ function displayData(data) {
   for (let i = 0; i < data.length; i++) {
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
-    td1.textContent = data[i].created_at;
+    td1.textContent = `${daysTrackedSince(data[i].created_at)} days`;
     tr.appendChild(td1);
     const td2 = document.createElement('td');
     td2.textContent = new URL(data[i].url).hostname;
@@ -128,8 +142,11 @@ function drawChart(sites) {
     return;
   }
 
+  if (barChart) {
+    barChart.destroy();
+  }
+
   const backgroundColors = sites.map(site => site.rating === "good" ? 'rgb(0, 255, 0)' : site.rating === "neutral" ? 'rgb(255, 255, 0)' : 'rgb(255, 0, 0)');
-  console.log(backgroundColors);
 
   const labels = sites.map(site => site.url);
   const data = {
@@ -158,7 +175,7 @@ function drawChart(sites) {
     },
   };
 
-  const barChart = new Chart(
+  barChart = new Chart(
     document.getElementById('bar-chart').getContext('2d'),
     config
   );
