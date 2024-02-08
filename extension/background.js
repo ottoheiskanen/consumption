@@ -9,7 +9,7 @@ function updateActiveTab(activeInfo) {
             currentTab = activeInfo.tabId;
             startTime = Date.now();
         } else {
-            currentTab = null; // Reset or nullify currentTab if URL is not allowed
+            currentTab = null; // nullify currentTab if url not allowed
         }
     });
 }

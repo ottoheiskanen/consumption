@@ -1,11 +1,29 @@
 const tableContainer = document.getElementById('table-container');
 
+let sites = [];
+
+let siteRating = {
+  "https://www.ylilauta.org": "bad",
+  "https://www.reddit.com": "bad",
+  "https://www.twitter.com": "bad",
+  "https://www.youtube.com": "neutral",
+  "https://www.hs.fi": "neutral",
+  "https://www.iltalehti.fi": "bad",
+  "https://www.is.fi": "bad",
+  "https://www.yle.fi": "neutral",
+  "https://elearn.uef.fi": "good",
+  "https://github.com": "good"
+}
+
 window.onload = function() {
   loadData();
-  drawChart();
 }
 
 function displayData(data) {
+  if (!data) {
+    return;
+  }
+
   tableContainer.innerHTML = '';
 
   //table
@@ -66,8 +84,15 @@ function loadData() {
   })
   .then(response => response.json())
   .then(data => {
-      console.log(data);
-      displayData(data);
+
+      //add rating to data
+      data.forEach(site => {
+        site.rating = siteRating[site.url] || "neutral";
+      });
+
+      sites = data;
+      displayData(sites);
+      drawChart(sites);
   });
 }
 
@@ -98,31 +123,25 @@ function postSiteData(siteUrl, siteName) {
   });
 }
 
-function drawChart() {
-  // const labels = Utils.months({count: 7});
-  const labels = [1,2,3,4,5,6,7];
+function drawChart(sites) {
+  if (!sites) {
+    return;
+  }
+
+  const backgroundColors = sites.map(site => site.rating === "good" ? 'rgb(0, 255, 0)' : site.rating === "neutral" ? 'rgb(255, 255, 0)' : 'rgb(255, 0, 0)');
+  console.log(backgroundColors);
+
+  const labels = sites.map(site => site.url);
   const data = {
     labels: labels,
     datasets: [{
-      label: 'My First Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
+      label: 'Time Spent (minutes)',
+      data: sites.map(site => site.time_spent/60),
       backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
+        ...backgroundColors
       ],
       borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
+        'rgba(0, 0, 0, 1)',
       ],
       borderWidth: 1
     }]
