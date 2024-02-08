@@ -71,6 +71,9 @@ function isUrlAllowed(url) {
         /^https:\/\/(www\.)?yle\.fi\/.*/,
         /^https:\/\/(www\.)?elearn.uef\.fi\/.*/,
         /^https:\/\/(www\.)?github\.com\/.*/,
+        /^https:\/\/(www\.)?m.karelia\.fi\/.*/,
+        /^https:\/\/(www\.)?news.ycombinator\.com\/.*/,
+        /^https:\/\/(www\.)?twitch\.tv\/.*/,
     ];
     return allowedPatterns.some(pattern => pattern.test(url));
 }

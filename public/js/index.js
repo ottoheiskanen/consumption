@@ -5,7 +5,7 @@ let interval;
 let barChart;
 
 let siteRating = {
-  "https://www.ylilauta.org": "bad",
+  "https://ylilauta.org": "bad",
   "https://www.reddit.com": "bad",
   "https://twitter.com": "bad",
   "https://www.youtube.com": "neutral",
@@ -14,7 +14,10 @@ let siteRating = {
   "https://www.is.fi": "bad",
   "https://www.yle.fi": "neutral",
   "https://elearn.uef.fi": "good",
-  "https://github.com": "good"
+  "https://github.com": "good",
+  "https://m.karelia.fi": "good",
+  "https://news.ycombinator.com": "neutral",
+  "https://www.twitch.tv": "bad"
 }
 
 window.onload = function() {
@@ -51,7 +54,7 @@ function displayData(data) {
   const thead = document.createElement('thead');
   const tr = document.createElement('tr');
   const th1 = document.createElement('th');
-  th1.textContent = 'Days since tracked:';
+  th1.textContent = 'Tracked For:';
   tr.appendChild(th1);
   const th2 = document.createElement('th');
   th2.textContent = 'Site';
@@ -59,6 +62,11 @@ function displayData(data) {
   const th3 = document.createElement('th');
   th3.textContent = 'Time Spent';
   tr.appendChild(th3);
+
+  const th4 = document.createElement('th');
+  th4.textContent = 'Site Rating';
+  tr.appendChild(th4);
+
   thead.appendChild(tr);
   table.appendChild(thead);
   
@@ -82,6 +90,22 @@ function displayData(data) {
 
     td3.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     tr.appendChild(td3);
+
+    const td4 = document.createElement('td');
+
+    if (data[i].rating === "good") {
+      td4.textContent = "😊";
+      tr.style.backgroundColor = "rgba(0, 255, 0, 0.3)";
+    } else if (data[i].rating === "neutral") {
+      td4.textContent = "😐";
+      tr.style.backgroundColor = "rgba(255, 255, 0, 0.3)";
+    } else {
+      td4.textContent = "💀";
+      tr.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
+    }
+
+    tr.appendChild(td4);
+
     tbody.appendChild(tr);
   }
 
@@ -146,9 +170,9 @@ function drawChart(sites) {
     barChart.destroy();
   }
 
-  const backgroundColors = sites.map(site => site.rating === "good" ? 'rgb(0, 255, 0)' : site.rating === "neutral" ? 'rgb(255, 255, 0)' : 'rgb(255, 0, 0)');
+  const backgroundColors = sites.map(site => site.rating === "good" ? 'rgba(0, 255, 0, 0.6)' : site.rating === "neutral" ? 'rgba(255, 255, 0, 0.3)' : 'rgba(255, 0, 0, 0.3)');
+  const labels = sites.map(site => new URL(site.url).hostname.split('.').slice(-2).join('.'));
 
-  const labels = sites.map(site => site.url);
   const data = {
     labels: labels,
     datasets: [{

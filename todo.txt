@@ -1,1 +1,6 @@
-to start server -> bundle exec rerun puma
+to start auto refreshing dev instance -> bundle exec rerun puma
+prod start  -> ruby app.rb
+
+
+TODO:
+------

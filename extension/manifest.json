@@ -17,7 +17,10 @@
     "https://www.is.fi/*",
     "https://www.yle.fi/*",
     "https://elearn.uef.fi/*",
-    "https://github.com/*"
+    "https://github.com/*",
+    "https://m.karelia.fi/*",
+    "https://news.ycombinator.com/*",
+    "https://www.twitch.tv/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -37,7 +40,10 @@
         "https://www.is.fi/*",
         "https://www.yle.fi/*",
         "https://elearn.uef.fi/*",
-        "https://github.com/*"
+        "https://github.com/*",
+        "https://m.karelia.fi/*",
+        "https://news.ycombinator.com/*",
+        "https://www.twitch.tv/*"
       ],
       "js": ["extension.js"]
     }

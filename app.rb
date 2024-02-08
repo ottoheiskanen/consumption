@@ -45,7 +45,6 @@ end
 
 get '/sites' do
     sites = Site.all
-    #json sites
     sites.map(&:values).to_json
 end
 
