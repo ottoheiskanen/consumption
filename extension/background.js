@@ -1,6 +1,15 @@
 let currentTab;
 let startTime = Date.now();
 
+function initialize() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        if (tabs[0] && isUrlAllowed(tabs[0].url)) {
+            currentTab = tabs[0].id;
+            startTime = Date.now();
+        }
+    });
+}
+
 function updateActiveTab(activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function(tab) {
 
@@ -14,6 +23,8 @@ function updateActiveTab(activeInfo) {
 }
 
 chrome.tabs.onActivated.addListener(updateActiveTab);
+
+initialize();
 
 // alarmtrigger every 10 seconds
 chrome.alarms.create("sendData", { periodInMinutes: 1 / 6 });
